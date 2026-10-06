@@ -1,8 +1,22 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
+import { AdminDashboard } from '@/components/admin/admin-dashboard';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import { dashboard } from '@/routes';
+import type { SharedData } from '@/types';
 
 export default function Dashboard() {
+    const { auth } = usePage<SharedData>().props;
+    const isAdmin = auth.user?.roles?.includes('admin');
+
+    if (isAdmin) {
+        return (
+            <>
+                <Head title="Admin Dashboard" />
+                <AdminDashboard />
+            </>
+        );
+    }
+
     return (
         <>
             <Head title="Dashboard" />
