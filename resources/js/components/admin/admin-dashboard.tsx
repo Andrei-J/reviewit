@@ -2,14 +2,12 @@ import { usePage } from '@inertiajs/react';
 import {
     AlertCircle,
     ArrowRight,
-    Bell,
     BookOpen,
     Calendar,
     ChevronDown,
     Download,
     FileText,
     MoreHorizontal,
-    Search,
     ShieldCheck,
     Sparkles,
     TrendingUp,
@@ -17,7 +15,6 @@ import {
     Users,
 } from 'lucide-react';
 import { useState } from 'react';
-import { useInitials } from '@/hooks/use-initials';
 import type { SharedData } from '@/types';
 
 interface MaterialUpload {
@@ -81,62 +78,29 @@ const chartData = [
 
 export function AdminDashboard() {
     const { auth } = usePage<SharedData>().props;
-    const getInitials = useInitials();
     const [selectedRange, setSelectedRange] = useState('Oct 1 – 6, 2026');
     const [chartTimeframe, setChartTimeframe] = useState('Last 7 days');
 
     return (
-        <div className="flex flex-col gap-6 p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto w-full">
-            {/* Top Bar with Header, Search and Actions */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
-                        Dashboard
-                    </h1>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-                        Overview of your ReviewIt platform
-                    </p>
-                </div>
-
-                <div className="flex items-center gap-3">
-                    {/* Search Platform Input */}
-                    <div className="relative flex items-center w-full md:w-64">
-                        <Search className="absolute left-3 size-4 text-neutral-400" />
-                        <input
-                            type="text"
-                            placeholder="Search platform..."
-                            className="h-9 w-full rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 pl-9 pr-12 text-xs text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        />
-                        <kbd className="absolute right-2.5 rounded border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-1.5 py-0.5 text-[10px] font-medium text-neutral-400">
-                            ⌘ K
-                        </kbd>
-                    </div>
-
-                    {/* Notification Bell */}
-                    <button
-                        type="button"
-                        className="relative flex size-9 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800/80 transition-colors"
-                        title="Notifications"
-                    >
-                        <Bell className="size-4" />
-                        <span className="absolute top-2 right-2 size-1.5 rounded-full bg-blue-600" />
-                    </button>
-
-                    {/* Admin Avatar Circle */}
-                    <div className="flex size-9 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-semibold text-xs ring-2 ring-white dark:ring-neutral-900">
-                        {getInitials(auth.user?.name || 'Admin')}
-                    </div>
-                </div>
+        <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 p-4 sm:p-6 lg:p-8">
+            {/* Header */}
+            <div>
+                <h1 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
+                    Dashboard
+                </h1>
+                <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                    Overview of your ReviewIt platform
+                </p>
             </div>
 
             {/* Platform at a Glance Section */}
             <section className="flex flex-col gap-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
                     <div>
-                        <h2 className="text-base sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                        <h2 className="text-base font-semibold text-neutral-900 sm:text-lg dark:text-neutral-100">
                             Platform at a glance
                         </h2>
-                        <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
+                        <p className="text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
                             Your community, content and AI activity this month.
                         </p>
                     </div>
@@ -144,7 +108,7 @@ export function AdminDashboard() {
                     <div className="flex items-center gap-2">
                         <button
                             type="button"
-                            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 shadow-xs"
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 shadow-xs hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800/60"
                         >
                             <Calendar className="size-3.5 text-neutral-500" />
                             <span>{selectedRange}</span>
@@ -152,7 +116,7 @@ export function AdminDashboard() {
 
                         <button
                             type="button"
-                            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 shadow-xs"
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 shadow-xs hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800/60"
                         >
                             <Download className="size-3.5 text-neutral-500" />
                             <span>Export report</span>
@@ -161,11 +125,11 @@ export function AdminDashboard() {
                 </div>
 
                 {/* 4 Stat Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     {/* Stat 1: Total Users */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs transition-shadow hover:shadow-md">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs sm:text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                            <span className="text-xs font-medium text-neutral-500 sm:text-sm dark:text-neutral-400">
                                 Total Users
                             </span>
                             <div className="flex size-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
@@ -173,7 +137,7 @@ export function AdminDashboard() {
                             </div>
                         </div>
                         <div className="mt-3">
-                            <span className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                            <span className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
                                 1,248
                             </span>
                         </div>
@@ -184,9 +148,9 @@ export function AdminDashboard() {
                     </div>
 
                     {/* Stat 2: Active Reviewers */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs transition-shadow hover:shadow-md">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs sm:text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                            <span className="text-xs font-medium text-neutral-500 sm:text-sm dark:text-neutral-400">
                                 Active Reviewers
                             </span>
                             <div className="flex size-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
@@ -194,7 +158,7 @@ export function AdminDashboard() {
                             </div>
                         </div>
                         <div className="mt-3">
-                            <span className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                            <span className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
                                 486
                             </span>
                         </div>
@@ -205,9 +169,9 @@ export function AdminDashboard() {
                     </div>
 
                     {/* Stat 3: Materials Uploaded */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs transition-shadow hover:shadow-md">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs sm:text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                            <span className="text-xs font-medium text-neutral-500 sm:text-sm dark:text-neutral-400">
                                 Materials Uploaded
                             </span>
                             <div className="flex size-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
@@ -215,7 +179,7 @@ export function AdminDashboard() {
                             </div>
                         </div>
                         <div className="mt-3">
-                            <span className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                            <span className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
                                 3,672
                             </span>
                         </div>
@@ -226,9 +190,9 @@ export function AdminDashboard() {
                     </div>
 
                     {/* Stat 4: AI Generations */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs transition-shadow hover:shadow-md">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs sm:text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                            <span className="text-xs font-medium text-neutral-500 sm:text-sm dark:text-neutral-400">
                                 AI Generations
                             </span>
                             <div className="flex size-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
@@ -236,7 +200,7 @@ export function AdminDashboard() {
                             </div>
                         </div>
                         <div className="mt-3">
-                            <span className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                            <span className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl dark:text-neutral-50">
                                 8,946
                             </span>
                         </div>
@@ -249,12 +213,12 @@ export function AdminDashboard() {
             </section>
 
             {/* Middle Grid: Platform Usage & Recent Uploads (Left), AI Health & Activity (Right) */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                 {/* Left Column (2 Cols wide) */}
-                <div className="lg:col-span-2 flex flex-col gap-6">
+                <div className="flex flex-col gap-6 lg:col-span-2">
                     {/* Platform Usage Chart Card */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
+                        <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
                             <div>
                                 <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
                                     Platform usage
@@ -266,7 +230,7 @@ export function AdminDashboard() {
 
                             <button
                                 type="button"
-                                className="inline-flex self-start sm:self-auto items-center gap-1.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-2.5 py-1 text-xs font-medium text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50"
+                                className="inline-flex items-center gap-1.5 self-start rounded-md border border-neutral-200 bg-white px-2.5 py-1 text-xs font-medium text-neutral-600 hover:bg-neutral-50 sm:self-auto dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300"
                             >
                                 <span>{chartTimeframe}</span>
                                 <ChevronDown className="size-3.5 text-neutral-400" />
@@ -277,40 +241,66 @@ export function AdminDashboard() {
                         <div className="mt-4 flex items-center gap-6 text-xs">
                             <div className="flex items-center gap-2">
                                 <span className="size-2 rounded-full bg-blue-600" />
-                                <span className="text-neutral-500 dark:text-neutral-400">AI generations</span>
-                                <span className="font-semibold text-neutral-900 dark:text-neutral-100">1,986</span>
+                                <span className="text-neutral-500 dark:text-neutral-400">
+                                    AI generations
+                                </span>
+                                <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                                    1,986
+                                </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="size-2 rounded-full bg-slate-400 dark:bg-slate-500" />
-                                <span className="text-neutral-500 dark:text-neutral-400">Materials uploaded</span>
-                                <span className="font-semibold text-neutral-900 dark:text-neutral-100">823</span>
+                                <span className="text-neutral-500 dark:text-neutral-400">
+                                    Materials uploaded
+                                </span>
+                                <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                                    823
+                                </span>
                             </div>
                         </div>
 
                         {/* Chart Area */}
-                        <div className="mt-6 h-60 w-full relative">
+                        <div className="relative mt-6 h-60 w-full">
                             {/* Y Axis Guide Lines */}
-                            <div className="absolute inset-0 flex flex-col justify-between pointer-events-none text-[10px] text-neutral-400">
-                                <div className="flex items-center gap-2 border-b border-neutral-100 dark:border-neutral-800/80 pb-1">
+                            <div className="pointer-events-none absolute inset-0 flex flex-col justify-between text-[10px] text-neutral-400">
+                                <div className="flex items-center gap-2 border-b border-neutral-100 pb-1 dark:border-neutral-800/80">
                                     <span>600</span>
                                 </div>
-                                <div className="flex items-center gap-2 border-b border-neutral-100 dark:border-neutral-800/80 pb-1">
+                                <div className="flex items-center gap-2 border-b border-neutral-100 pb-1 dark:border-neutral-800/80">
                                     <span>400</span>
                                 </div>
-                                <div className="flex items-center gap-2 border-b border-neutral-100 dark:border-neutral-800/80 pb-1">
+                                <div className="flex items-center gap-2 border-b border-neutral-100 pb-1 dark:border-neutral-800/80">
                                     <span>200</span>
                                 </div>
-                                <div className="flex items-center gap-2 border-b border-neutral-200 dark:border-neutral-700 pb-1">
+                                <div className="flex items-center gap-2 border-b border-neutral-200 pb-1 dark:border-neutral-700">
                                     <span>0</span>
                                 </div>
                             </div>
 
                             {/* SVG Chart with Bars & Wave Line */}
-                            <svg className="w-full h-full overflow-visible" viewBox="0 0 700 210" preserveAspectRatio="none">
+                            <svg
+                                className="h-full w-full overflow-visible"
+                                viewBox="0 0 700 210"
+                                preserveAspectRatio="none"
+                            >
                                 <defs>
-                                    <linearGradient id="aiGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.25" />
-                                        <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.0" />
+                                    <linearGradient
+                                        id="aiGradient"
+                                        x1="0"
+                                        y1="0"
+                                        x2="0"
+                                        y2="1"
+                                    >
+                                        <stop
+                                            offset="0%"
+                                            stopColor="#3B82F6"
+                                            stopOpacity="0.25"
+                                        />
+                                        <stop
+                                            offset="100%"
+                                            stopColor="#3B82F6"
+                                            stopOpacity="0.0"
+                                        />
                                     </linearGradient>
                                 </defs>
 
@@ -358,20 +348,21 @@ export function AdminDashboard() {
                     </div>
 
                     {/* Recent Uploads Table Card */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
                         <div className="flex items-center justify-between pb-3">
                             <div>
                                 <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
                                     Recent uploads
                                 </h3>
                                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                                    Latest student materials and processing status
+                                    Latest student materials and processing
+                                    status
                                 </p>
                             </div>
 
                             <a
                                 href="#"
-                                className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
                             >
                                 <span>View all uploads</span>
                                 <ArrowRight className="size-3.5" />
@@ -382,23 +373,25 @@ export function AdminDashboard() {
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-xs">
                                 <thead>
-                                    <tr className="border-b border-neutral-100 dark:border-neutral-800 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
-                                        <th className="py-3 px-2">Material</th>
-                                        <th className="py-3 px-2">Uploaded By</th>
-                                        <th className="py-3 px-2">Status</th>
-                                        <th className="py-3 px-2">Uploaded</th>
-                                        <th className="py-3 px-2 text-right"></th>
+                                    <tr className="border-b border-neutral-100 text-[11px] font-semibold tracking-wider text-neutral-400 uppercase dark:border-neutral-800">
+                                        <th className="px-2 py-3">Material</th>
+                                        <th className="px-2 py-3">
+                                            Uploaded By
+                                        </th>
+                                        <th className="px-2 py-3">Status</th>
+                                        <th className="px-2 py-3">Uploaded</th>
+                                        <th className="px-2 py-3 text-right"></th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800/60 font-medium">
+                                <tbody className="divide-y divide-neutral-100 font-medium dark:divide-neutral-800/60">
                                     {recentUploads.map((item) => (
                                         <tr
                                             key={item.id}
-                                            className="hover:bg-neutral-50/70 dark:hover:bg-neutral-800/40 transition-colors"
+                                            className="transition-colors hover:bg-neutral-50/70 dark:hover:bg-neutral-800/40"
                                         >
-                                            <td className="py-3.5 px-2">
+                                            <td className="px-2 py-3.5">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-500">
+                                                    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-500 dark:bg-neutral-800">
                                                         <FileText className="size-4" />
                                                     </div>
                                                     <div>
@@ -406,35 +399,38 @@ export function AdminDashboard() {
                                                             {item.title}
                                                         </p>
                                                         <p className="text-[11px] text-neutral-500">
-                                                            {item.type} • {item.subject}
+                                                            {item.type} •{' '}
+                                                            {item.subject}
                                                         </p>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="py-3.5 px-2 text-neutral-700 dark:text-neutral-300">
+                                            <td className="px-2 py-3.5 text-neutral-700 dark:text-neutral-300">
                                                 {item.uploadedBy}
                                             </td>
-                                            <td className="py-3.5 px-2">
-                                                {item.status === 'Completed' && (
-                                                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200/60">
+                                            <td className="px-2 py-3.5">
+                                                {item.status ===
+                                                    'Completed' && (
+                                                    <span className="inline-flex items-center rounded-full border border-emerald-200/60 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
                                                         Completed
                                                     </span>
                                                 )}
-                                                {item.status === 'Processing' && (
-                                                    <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-semibold text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 border border-blue-200/60">
+                                                {item.status ===
+                                                    'Processing' && (
+                                                    <span className="inline-flex items-center rounded-full border border-blue-200/60 bg-blue-50 px-2.5 py-0.5 text-[11px] font-semibold text-blue-700 dark:bg-blue-950/40 dark:text-blue-400">
                                                         Processing
                                                     </span>
                                                 )}
                                                 {item.status === 'Failed' && (
-                                                    <span className="inline-flex items-center rounded-full bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border border-rose-200/60">
+                                                    <span className="inline-flex items-center rounded-full border border-rose-200/60 bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold text-rose-700 dark:bg-rose-950/40 dark:text-rose-400">
                                                         Failed
                                                     </span>
                                                 )}
                                             </td>
-                                            <td className="py-3.5 px-2 text-neutral-500 dark:text-neutral-400">
+                                            <td className="px-2 py-3.5 text-neutral-500 dark:text-neutral-400">
                                                 {item.timeAgo}
                                             </td>
-                                            <td className="py-3.5 px-2 text-right">
+                                            <td className="px-2 py-3.5 text-right">
                                                 <button
                                                     type="button"
                                                     className="p-1 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
@@ -449,11 +445,11 @@ export function AdminDashboard() {
                         </div>
 
                         {/* Table Footer */}
-                        <div className="mt-3 flex items-center justify-between pt-3 border-t border-neutral-100 dark:border-neutral-800 text-xs">
+                        <div className="mt-3 flex items-center justify-between border-t border-neutral-100 pt-3 text-xs dark:border-neutral-800">
                             <span className="text-neutral-500 dark:text-neutral-400">
                                 4 latest of 3,672 materials
                             </span>
-                            <div className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400 font-medium">
+                            <div className="flex items-center gap-1.5 font-medium text-rose-600 dark:text-rose-400">
                                 <AlertCircle className="size-3.5" />
                                 <span>1 upload needs review</span>
                             </div>
@@ -464,7 +460,7 @@ export function AdminDashboard() {
                 {/* Right Column (1 Col wide) */}
                 <div className="flex flex-col gap-6">
                     {/* AI Processing Health Card */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
                         <div className="flex items-center justify-between">
                             <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
                                 AI processing health
@@ -494,7 +490,7 @@ export function AdminDashboard() {
                                 <span className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
                                     99.2%
                                 </span>
-                                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
                                     Success rate - 24h
                                 </p>
                             </div>
@@ -502,7 +498,7 @@ export function AdminDashboard() {
                                 <span className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
                                     18.4s
                                 </span>
-                                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
                                     Avg. generation time
                                 </p>
                             </div>
@@ -511,15 +507,15 @@ export function AdminDashboard() {
                         {/* Processing Queue */}
                         <div className="mt-5">
                             <div className="flex items-center justify-between text-xs">
-                                <span className="text-neutral-600 dark:text-neutral-400 font-medium">
+                                <span className="font-medium text-neutral-600 dark:text-neutral-400">
                                     Processing queue
                                 </span>
                                 <span className="font-semibold text-neutral-900 dark:text-neutral-100">
                                     12 / 50 jobs
                                 </span>
                             </div>
-                            <div className="mt-2 h-2 w-full rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-                                <div className="h-full bg-blue-600 rounded-full w-[24%]" />
+                            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
+                                <div className="h-full w-[24%] rounded-full bg-blue-600" />
                             </div>
                             <p className="mt-2 text-[11px] text-neutral-500 dark:text-neutral-400">
                                 8 processing • 4 waiting
@@ -527,10 +523,10 @@ export function AdminDashboard() {
                         </div>
 
                         {/* Action Link */}
-                        <div className="mt-6 pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                        <div className="mt-6 border-t border-neutral-100 pt-3 dark:border-neutral-800">
                             <a
                                 href="#"
-                                className="flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                                className="flex items-center justify-between text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
                             >
                                 <span>View processing logs</span>
                                 <ArrowRight className="size-3.5" />
@@ -539,7 +535,7 @@ export function AdminDashboard() {
                     </div>
 
                     {/* Recent Activity Card */}
-                    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs">
+                    <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
                         <div className="flex items-center justify-between">
                             <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
                                 Recent activity
@@ -556,7 +552,7 @@ export function AdminDashboard() {
                         <div className="mt-4 flex flex-col gap-4">
                             {/* Item 1 */}
                             <div className="flex items-start gap-3">
-                                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400 mt-0.5">
+                                <div className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
                                     <UserPlus className="size-3.5" />
                                 </div>
                                 <div className="flex-1 text-xs">
@@ -566,13 +562,15 @@ export function AdminDashboard() {
                                     <p className="text-[11px] text-neutral-500">
                                         Ava Thompson - University of Bristol
                                     </p>
-                                    <p className="text-[10px] text-neutral-400 mt-0.5">5 min ago</p>
+                                    <p className="mt-0.5 text-[10px] text-neutral-400">
+                                        5 min ago
+                                    </p>
                                 </div>
                             </div>
 
                             {/* Item 2 */}
                             <div className="flex items-start gap-3">
-                                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-purple-50 text-purple-600 dark:bg-purple-950/60 dark:text-purple-400 mt-0.5">
+                                <div className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-purple-50 text-purple-600 dark:bg-purple-950/60 dark:text-purple-400">
                                     <Sparkles className="size-3.5" />
                                 </div>
                                 <div className="flex-1 text-xs">
@@ -582,13 +580,15 @@ export function AdminDashboard() {
                                     <p className="text-[11px] text-neutral-500">
                                         Emma Wilson • 24 practice questions
                                     </p>
-                                    <p className="text-[10px] text-neutral-400 mt-0.5">7 min ago</p>
+                                    <p className="mt-0.5 text-[10px] text-neutral-400">
+                                        7 min ago
+                                    </p>
                                 </div>
                             </div>
 
                             {/* Item 3 */}
                             <div className="flex items-start gap-3">
-                                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-amber-50 text-amber-600 dark:bg-amber-950/60 dark:text-amber-400 mt-0.5">
+                                <div className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-amber-50 text-amber-600 dark:bg-amber-950/60 dark:text-amber-400">
                                     <AlertCircle className="size-3.5" />
                                 </div>
                                 <div className="flex-1 text-xs">
@@ -598,13 +598,15 @@ export function AdminDashboard() {
                                     <p className="text-[11px] text-neutral-500">
                                         Noah Garcia • Password-protected PDF
                                     </p>
-                                    <p className="text-[10px] text-neutral-400 mt-0.5">18 min ago</p>
+                                    <p className="mt-0.5 text-[10px] text-neutral-400">
+                                        18 min ago
+                                    </p>
                                 </div>
                             </div>
 
                             {/* Item 4 */}
                             <div className="flex items-start gap-3">
-                                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400 mt-0.5">
+                                <div className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
                                     <ShieldCheck className="size-3.5" />
                                 </div>
                                 <div className="flex-1 text-xs">
@@ -614,16 +616,18 @@ export function AdminDashboard() {
                                     <p className="text-[11px] text-neutral-500">
                                         Alex Morgan - Restored student account
                                     </p>
-                                    <p className="text-[10px] text-neutral-400 mt-0.5">32 min ago</p>
+                                    <p className="mt-0.5 text-[10px] text-neutral-400">
+                                        32 min ago
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Action Link */}
-                        <div className="mt-5 pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                        <div className="mt-5 border-t border-neutral-100 pt-3 dark:border-neutral-800">
                             <a
                                 href="#"
-                                className="flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                                className="flex items-center justify-between text-xs font-semibold text-blue-600 hover:underline dark:text-blue-400"
                             >
                                 <span>View audit log</span>
                                 <ArrowRight className="size-3.5" />
@@ -634,18 +638,19 @@ export function AdminDashboard() {
             </div>
 
             {/* Bottom Community Banner */}
-            <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-xs">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="rounded-xl border border-neutral-200/80 bg-white p-5 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
+                <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div className="flex items-center gap-4">
                         <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400">
                             <Users className="size-5.5" />
                         </div>
                         <div>
-                            <h4 className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                            <h4 className="text-sm font-semibold text-neutral-900 sm:text-base dark:text-neutral-100">
                                 Keep your learning community in good hands
                             </h4>
-                            <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
-                                Manage student accounts, review access and invite new administrators.
+                            <p className="text-xs text-neutral-500 sm:text-sm dark:text-neutral-400">
+                                Manage student accounts, review access and
+                                invite new administrators.
                             </p>
                         </div>
                     </div>
@@ -653,7 +658,7 @@ export function AdminDashboard() {
                     <div className="flex items-center gap-2.5 self-start sm:self-auto">
                         <button
                             type="button"
-                            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-3.5 py-2 text-xs font-semibold text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-700 shadow-xs"
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-3.5 py-2 text-xs font-semibold text-neutral-700 shadow-xs hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
                         >
                             <Users className="size-3.5 text-neutral-500" />
                             <span>Manage users</span>
@@ -661,7 +666,7 @@ export function AdminDashboard() {
 
                         <button
                             type="button"
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-blue-700 shadow-xs transition-colors"
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-blue-700"
                         >
                             <span>+ Invite administrator</span>
                         </button>

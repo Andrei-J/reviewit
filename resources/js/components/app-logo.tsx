@@ -12,9 +12,9 @@ export default function AppLogo() {
             </div>
             <div className="ml-1.5 grid flex-1 text-left text-sm">
                 <span className="truncate leading-tight font-bold text-neutral-900 dark:text-neutral-100">
-                    {name || 'ReviewIt'}
+                    ReviewIt
                 </span>
-                <span className="truncate text-[10px] text-neutral-500 dark:text-neutral-400 leading-tight">
+                <span className="truncate text-[10px] leading-tight text-neutral-500 dark:text-neutral-400">
                     AI-Powered Learning Platform
                 </span>
             </div>

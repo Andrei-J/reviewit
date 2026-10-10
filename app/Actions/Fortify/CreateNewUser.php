@@ -7,6 +7,7 @@ use App\Concerns\ProfileValidationRules;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Spatie\Permission\Models\Role;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -31,6 +32,7 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         // Automatically make every newly registered user a student
+        Role::firstOrCreate(['name' => 'student', 'guard_name' => 'web']);
         $user->assignRole('student');
 
         return $user;

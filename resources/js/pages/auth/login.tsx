@@ -1,4 +1,6 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
+import { AccountSuspendedModal } from '@/components/account-suspended-modal';
 import InputError from '@/components/input-error';
 import PasskeyVerify from '@/components/passkey-verify';
 import PasswordInput from '@/components/password-input';
@@ -11,18 +13,45 @@ import { Spinner } from '@/components/ui/spinner';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import type { BannedAccountInfo, SharedData } from '@/types';
 
 type Props = {
     status?: string;
     canResetPassword: boolean;
+    banned?: BannedAccountInfo | null;
 };
 
-export default function Login({ status, canResetPassword }: Props) {
+export default function Login({ status, canResetPassword, banned }: Props) {
+    const { props } = usePage<SharedData & Props>();
+    const pageBanned = banned || props.flash?.banned_account;
+    const pageErrors = props.errors as Record<string, string> | undefined;
+
+    const isSuspended =
+        Boolean(pageBanned) ||
+        Boolean(pageErrors?.email?.toLowerCase().includes('suspended'));
+
+    const [isSuspendedModalOpen, setIsSuspendedModalOpen] =
+        useState(isSuspended);
+
+    useEffect(() => {
+        if (isSuspended) {
+            setIsSuspendedModalOpen(true);
+        }
+    }, [isSuspended]);
+
     return (
         <>
             <Head title="Log in" />
 
             <PasskeyVerify />
+
+            <AccountSuspendedModal
+                isOpen={isSuspendedModalOpen}
+                onClose={() => setIsSuspendedModalOpen(false)}
+                reason={pageBanned?.reason}
+                bannedAt={pageBanned?.banned_at}
+                email={pageBanned?.email}
+            />
 
             <Form
                 {...store.form()}
@@ -42,9 +71,33 @@ export default function Login({ status, canResetPassword }: Props) {
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="email"
+                                    defaultValue={pageBanned?.email || ''}
                                     placeholder="email@example.com"
                                 />
-                                <InputError message={errors.email} />
+                                {errors.email &&
+                                    (errors.email
+                                        .toLowerCase()
+                                        .includes('suspended') ? (
+                                        <div className="mt-1 flex items-center justify-between text-xs text-rose-600 dark:text-rose-400">
+                                            <span>
+                                                Account suspended by
+                                                administrator.
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setIsSuspendedModalOpen(
+                                                        true,
+                                                    )
+                                                }
+                                                className="cursor-pointer font-medium underline hover:text-rose-700 dark:hover:text-rose-300"
+                                            >
+                                                View details
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <InputError message={errors.email} />
+                                    ))}
                             </div>
 
                             <div className="grid gap-2">

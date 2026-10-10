@@ -2,6 +2,11 @@ export type User = {
     id: number;
     name: string;
     email: string;
+    plan?: 'free' | 'premium';
+    code?: string;
+    status?: 'active' | 'banned';
+    banned_at?: string | null;
+    ban_reason?: string | null;
     avatar?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;

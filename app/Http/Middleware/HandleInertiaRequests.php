@@ -46,6 +46,9 @@ class HandleInertiaRequests extends Middleware
                     'permissions' => $user->getAllPermissions()->pluck('name')->values()->all(),
                 ]) : null,
             ],
+            'flash' => [
+                'banned_account' => $request->session()->get('banned_account'),
+            ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

@@ -47,6 +47,16 @@ class UserFactory extends Factory
     }
 
     /**
+     * Indicate that the user has a premium subscription plan.
+     */
+    public function premium(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'plan' => 'premium',
+        ]);
+    }
+
+    /**
      * Indicate that the model has two-factor authentication configured.
      */
     public function withTwoFactor(): static
@@ -55,6 +65,17 @@ class UserFactory extends Factory
             'two_factor_secret' => encrypt('secret'),
             'two_factor_recovery_codes' => encrypt(json_encode(['recovery-code-1'])),
             'two_factor_confirmed_at' => now(),
+        ]);
+    }
+
+    /**
+     * Indicate that the user is banned.
+     */
+    public function banned(?string $reason = 'Repeated community guideline violations'): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'banned_at' => now()->subDays(fake()->numberBetween(1, 10)),
+            'ban_reason' => $reason,
         ]);
     }
 }

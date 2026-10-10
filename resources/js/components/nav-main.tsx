@@ -7,6 +7,8 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
+import { dashboard } from '@/routes';
+import { toUrl } from '@/lib/utils';
 import type { NavItem } from '@/types';
 
 export function NavMain({
@@ -16,7 +18,22 @@ export function NavMain({
     items: NavItem[];
     label?: string;
 }) {
-    const { isCurrentUrl } = useCurrentUrl();
+    const { isCurrentUrl, currentUrl } = useCurrentUrl();
+
+    const isItemActive = (href: NavItem['href']) => {
+        const itemUrl = toUrl(href);
+        if (itemUrl === toUrl(dashboard()) || itemUrl === '/dashboard') {
+            return currentUrl === '/dashboard' || currentUrl === '/';
+        }
+        if (itemUrl === '/reviewers') {
+            return (
+                currentUrl === '/reviewers' ||
+                (currentUrl.startsWith('/reviewers/') &&
+                    !currentUrl.startsWith('/reviewers/create'))
+            );
+        }
+        return isCurrentUrl(href);
+    };
 
     return (
         <SidebarGroup className="px-2 py-0">
@@ -26,7 +43,7 @@ export function NavMain({
                     <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                             asChild
-                            isActive={isCurrentUrl(item.href)}
+                            isActive={isItemActive(item.href)}
                             tooltip={{ children: item.title }}
                         >
                             <Link href={item.href} prefetch>
