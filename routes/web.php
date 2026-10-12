@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('reviewers/{id}', function (string $id) {
         return inertia('reviewers/show', ['id' => $id]);
     })->name('reviewers.show');
+    Route::inertia('subjects', 'reviewers/subjects')->name('subjects.index');
     Route::inertia('reports', 'reports/index')->name('reports.index');
 });
 

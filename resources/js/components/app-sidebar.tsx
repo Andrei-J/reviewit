@@ -7,6 +7,7 @@ import {
     LayoutGrid,
     PlusCircle,
     Settings,
+    Tag,
     Users,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
@@ -34,6 +35,11 @@ const studentNavItems: NavItem[] = [
         title: 'My Reviewers',
         href: '/reviewers',
         icon: BookOpen,
+    },
+    {
+        title: 'My Subjects',
+        href: '/subjects',
+        icon: Tag,
     },
     {
         title: 'Create Reviewer',

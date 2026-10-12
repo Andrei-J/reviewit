@@ -183,14 +183,51 @@ export const defaultStudentStats: StudentDashboardStats = {
     availableReports: 1,
 };
 
-export const subjectOptions = [
-    'Database Management',
-    'Computer Networks',
-    'Data Structures',
-    'Operating Systems',
-    'Software Engineering',
-    'Statistics',
-    'Artificial Intelligence',
-    'Cybersecurity',
-    'Web Development',
+export interface StudentSubject {
+    id: string;
+    name: string;
+    reviewerCount: number;
+    createdAt: string;
+}
+
+export const mockStudentSubjects: StudentSubject[] = [
+    {
+        id: 'subj-1',
+        name: 'Database Management',
+        reviewerCount: 1,
+        createdAt: 'Oct 6, 2026',
+    },
+    {
+        id: 'subj-2',
+        name: 'Computer Networks',
+        reviewerCount: 1,
+        createdAt: 'Oct 8, 2026',
+    },
+    {
+        id: 'subj-3',
+        name: 'Data Structures',
+        reviewerCount: 1,
+        createdAt: 'Oct 7, 2026',
+    },
+    {
+        id: 'subj-4',
+        name: 'Operating Systems',
+        reviewerCount: 1,
+        createdAt: 'Oct 5, 2026',
+    },
+    {
+        id: 'subj-5',
+        name: 'Software Engineering',
+        reviewerCount: 1,
+        createdAt: 'Oct 7, 2026',
+    },
+    {
+        id: 'subj-6',
+        name: 'Statistics',
+        reviewerCount: 1,
+        createdAt: 'Oct 4, 2026',
+    },
 ];
+
+export const subjectOptions = mockStudentSubjects.map((s) => s.name);
+
