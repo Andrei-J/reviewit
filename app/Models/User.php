@@ -37,7 +37,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read string $code
  * @property-read string $status
  */
-#[Fillable(['name', 'email', 'password', 'plan', 'banned_at', 'ban_reason', 'banned_by_id'])]
+#[Fillable(['name', 'email', 'password', 'plan', 'banned_at', 'ban_reason', 'banned_by_id', 'ai_provider', 'ai_model', 'cloud_ai_api_key', 'cloud_ai_base_url'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {

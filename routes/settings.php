@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Settings\AiSettingsController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\SecurityController;
 use Illuminate\Auth\Middleware\RequirePassword;
@@ -7,15 +8,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('settings', function () {
-        if (auth()->user()?->hasRole('admin')) {
-            return redirect('/settings/profile');
-        }
-
-        return inertia('settings/student');
+        return redirect()->route('profile.edit');
     })->name('settings');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('settings/ai/scan-ollama', [AiSettingsController::class, 'scanOllamaModels'])->name('ai-settings.scan-ollama');
+    Route::patch('settings/ai', [AiSettingsController::class, 'update'])->name('ai-settings.update');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

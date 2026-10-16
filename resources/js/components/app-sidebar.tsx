@@ -50,12 +50,7 @@ const studentNavItems: NavItem[] = [
         title: 'Reports',
         href: '/reports',
         icon: BarChart3,
-    },
-    {
-        title: 'Settings',
-        href: '/settings',
-        icon: Settings,
-    },
+    }
 ];
 
 const adminNavItems: NavItem[] = [
@@ -107,28 +102,7 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <div className="mx-1 mb-2 rounded-xl border border-neutral-200/80 bg-neutral-50/70 p-3.5 dark:border-neutral-800 dark:bg-neutral-900/60">
-                    <div className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-neutral-900 dark:text-neutral-100">
-                        <HelpCircle className="size-4 text-blue-600 dark:text-blue-400" />
-                        <span>Need a hand?</span>
-                    </div>
-                    <p className="mb-2 text-[11px] leading-snug text-neutral-500 dark:text-neutral-400">
-                        {isAdmin
-                            ? 'Find guidance for managing your platform.'
-                            : 'Find guidance for creating and managing your reviewers.'}
-                    </p>
-                    <a
-                        href="#"
-                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 hover:underline dark:text-blue-400"
-                    >
-                        <span>
-                            {isAdmin
-                                ? 'Admin help center'
-                                : 'Student help center'}
-                        </span>
-                        <ArrowRight className="size-3" />
-                    </a>
-                </div>
+                
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

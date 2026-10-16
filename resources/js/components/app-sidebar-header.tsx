@@ -40,9 +40,7 @@ export function AppSidebarHeader({
                         }
                         className="h-9 w-full rounded-lg border border-neutral-200 bg-white pr-12 pl-9 text-xs text-neutral-900 placeholder:text-neutral-400 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
                     />
-                    <kbd className="absolute right-2.5 rounded border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 text-[10px] font-medium text-neutral-400 dark:border-neutral-700 dark:bg-neutral-800">
-                        ⌘ K
-                    </kbd>
+                  
                 </div>
 
                 {/* Notification Bell */}
