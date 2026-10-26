@@ -67,53 +67,7 @@ export function CreatedReviewerModal({
     const [activeTab, setActiveTab] = useState<'reviewer' | 'test' | 'prompt'>('reviewer');
 
     // Reviewer Content State
-    const defaultReviewerContent = initialContent || `# ${title || 'Exam Reviewer'}
-**Subject:** ${subject || 'General Studies'}
-**Source Materials:** ${filesCount} documents analyzed
-**Generated via:** ReviewIt AI Assistant
-
----
-
-## 1. Executive Summary & Core Concepts
-This study reviewer synthesizes the foundational concepts, definitions, and operational principles extracted from your uploaded lecture materials and slides. Use this as your primary revision material ahead of exam assessments.
-
-- **Primary Paradigm:** Relational and structured conceptual modeling.
-- **Key Objective:** Minimize anomalies, ensure structural integrity, and optimize query evaluation performance.
-
----
-
-## 2. Fundamental Definitions & Terminology
-1. **Entity-Relationship Model (ERD):** Graphical depiction of entities, attributes, and cardinality relationships.
-2. **First Normal Form (1NF):** Each column contains atomic (indivisible) values; no repeating groups.
-3. **Second Normal Form (2NF):** Satisfies 1NF and removes partial functional dependencies (all non-key attributes fully depend on candidate key).
-4. **Third Normal Form (3NF):** Satisfies 2NF with zero transitive dependencies (non-key attributes do not depend on other non-key attributes).
-5. **ACID Properties:**
-   - **Atomicity:** All operations complete or none execute.
-   - **Consistency:** Database transitions between valid states preserving schema constraints.
-   - **Isolation:** Concurrent transactions execute without mutual interference.
-   - **Durability:** Committed transactions persist even across catastrophic system crashes.
-
----
-
-## 3. High-Yield Exam Formulas & Query Patterns
-\`\`\`sql
--- Standard Aggregation Pattern with Group Filtering
-SELECT department_id, COUNT(*) AS student_count, AVG(gpa) AS avg_gpa
-FROM students
-WHERE status = 'Active'
-GROUP BY department_id
-HAVING AVG(gpa) >= 3.50
-ORDER BY avg_gpa DESC;
-\`\`\`
-
----
-
-## 4. Key Takeaways & Exam Tips
-- Pay close attention to candidate keys when checking for 2NF and 3NF violations.
-- Remember that BCNF is a stricter form of 3NF where every determinant must be a candidate key.
-- Differentiate between \`WHERE\` (row filter prior to aggregation) and \`HAVING\` (group filter post-aggregation).`;
-
-    const [reviewerText, setReviewerText] = useState(defaultReviewerContent);
+    const [reviewerText, setReviewerText] = useState(initialContent || '');
     const [isEditingContent, setIsEditingContent] = useState(false);
     const [savedNotification, setSavedNotification] = useState(false);
     const [downloadingPdf, setDownloadingPdf] = useState(false);
@@ -133,10 +87,8 @@ ORDER BY avg_gpa DESC;
     const [showAnswerKey, setShowAnswerKey] = useState(false);
 
     React.useEffect(() => {
-    if (initialContent) {
-        setReviewerText(initialContent);
-    }
-}, [initialContent]);
+        setReviewerText(initialContent || '');
+    }, [initialContent]);
 
 
     // Handle Saving Content Changes
@@ -171,7 +123,7 @@ ORDER BY avg_gpa DESC;
         setTimeout(() => {
             setIsRegenerating(false);
             setReviewerText(
-                defaultReviewerContent +
+                (reviewerText || initialContent || '') +
                     `\n\n---\n### ⚡ Refined with System Prompt:\n*"${systemMessage}"*\n- Tailored custom review notes generated successfully.`
             );
             setActiveTab('reviewer');

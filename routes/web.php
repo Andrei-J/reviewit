@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PdfExtractionController;
+use App\Http\Controllers\ReviewerGenerationController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
@@ -20,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('pdf-test', 'pdf-test')->name('pdf-test');
 
     Route::post('/pdf/extract', [PdfExtractionController::class, 'extract'])->name('pdf.extract');
+    Route::post('/reviewers/generate', [ReviewerGenerationController::class, 'generate'])->name('reviewers.generate');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
