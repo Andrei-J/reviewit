@@ -8,7 +8,7 @@ class PdfTextExtractionService
 {
     public function extractText(string $filePath): string
     {
-        $parser = new Parser();
+        $parser = new Parser;
 
         $pdf = $parser->parseFile($filePath);
 

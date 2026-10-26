@@ -52,6 +52,24 @@ test('user can update ai settings with cloud provider', function () {
         ->and($user->cloud_ai_base_url)->toBe('https://api.openai.com/v1');
 });
 
+test('user can update ai settings with standard request returning redirect', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)
+        ->from(route('profile.edit'))
+        ->patch(route('ai-settings.update'), [
+            'ai_provider' => 'local',
+            'ai_model' => 'llama3:latest',
+        ]);
+
+    $response->assertRedirect(route('profile.edit'))
+        ->assertSessionHas('status', 'ai-settings-updated');
+
+    $user->refresh();
+    expect($user->ai_provider)->toBe('local')
+        ->and($user->ai_model)->toBe('llama3:latest');
+});
+
 test('scan ollama models handles successful ollama response', function () {
     Http::fake([
         'http://localhost:11434/api/tags' => Http::response([

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rule;
@@ -45,7 +46,7 @@ class AiSettingsController extends Controller
      *
      * @param  array{ai_provider: string, ai_model?: string, cloud_ai_api_key?: string, cloud_ai_base_url?: string}  $validated
      */
-    public function update(Request $request): JsonResponse
+    public function update(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'ai_provider' => ['required', Rule::in(['local', 'cloud'])],

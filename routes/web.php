@@ -1,10 +1,10 @@
 <?php
-use App\Http\Controllers\PdfExtractionController;
+
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\PdfExtractionController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
-
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
@@ -18,8 +18,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('subjects', 'reviewers/subjects')->name('subjects.index');
     Route::inertia('reports', 'reports/index')->name('reports.index');
     Route::view('pdf-test', 'pdf-test')->name('pdf-test');
-        
-    Route::post('/pdf/extract', [PdfExtractionController::class,'extract',])->name('pdf.extract');
+
+    Route::post('/pdf/extract', [PdfExtractionController::class, 'extract'])->name('pdf.extract');
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -28,7 +28,6 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::post('users/{user}/ban', [UserController::class, 'ban'])->name('users.ban');
     Route::post('users/{user}/unban', [UserController::class, 'unban'])->name('users.unban');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
 
 });
 

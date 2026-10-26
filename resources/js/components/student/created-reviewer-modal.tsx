@@ -50,7 +50,8 @@ export interface CreatedReviewerModalProps {
     subject: string;
     initialSystemMessage: string;
     filesCount: number;
-    onSaveReviewer?: (updatedContent: string) => void;
+    onSaveReviewer?: (updatedContent: string) => void,
+    initialContent?: string;
 }
 
 export function CreatedReviewerModal({
@@ -61,11 +62,12 @@ export function CreatedReviewerModal({
     initialSystemMessage,
     filesCount,
     onSaveReviewer,
+    initialContent
 }: CreatedReviewerModalProps) {
     const [activeTab, setActiveTab] = useState<'reviewer' | 'test' | 'prompt'>('reviewer');
 
     // Reviewer Content State
-    const defaultReviewerContent = `# ${title || 'Exam Reviewer'}
+    const defaultReviewerContent = initialContent || `# ${title || 'Exam Reviewer'}
 **Subject:** ${subject || 'General Studies'}
 **Source Materials:** ${filesCount} documents analyzed
 **Generated via:** ReviewIt AI Assistant
@@ -129,6 +131,13 @@ ORDER BY avg_gpa DESC;
     const [isGeneratingTest, setIsGeneratingTest] = useState(false);
     const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
     const [showAnswerKey, setShowAnswerKey] = useState(false);
+
+    React.useEffect(() => {
+    if (initialContent) {
+        setReviewerText(initialContent);
+    }
+}, [initialContent]);
+
 
     // Handle Saving Content Changes
     const handleSaveContent = () => {
